@@ -14,12 +14,13 @@
             <table class="table">
                 <thead>
                     <th>Name</th>
-                    <th></th>
+                    <th>Post Count</th>
                 </thead>
                 <tbody>
                     @foreach($tags as $tag)
                         <tr>
                             <td>{{ $tag->name }}</td>
+                            <td>{{ $tag->posts->count() }}</td>
                             <td>
                                 <a href="{{ route('tags.edit', $tag->id)}}" class="btn btn-info btn-sm">Edit</a>
                                 <a href="#" class="btn btn-danger btn-sm" onclick="deleteHandle( {{ $tag->id }})">Delete</a>

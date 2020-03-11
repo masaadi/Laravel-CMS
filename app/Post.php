@@ -17,10 +17,14 @@ class Post extends Model
     }
 
     public function category(){
-        $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function tags(){
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function hasTag($tag){
+        return in_array($tag, $this->tags->pluck('id')->toArray());
     }
 }

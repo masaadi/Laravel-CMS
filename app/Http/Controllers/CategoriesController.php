@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\Post;
 use App\Http\Requests\categories\CreateCategoryRequest;
 use App\Http\Requests\categories\UpdateCategoryRequest;
 
@@ -95,6 +96,10 @@ class CategoriesController extends Controller
      */
     public function destroy(Category $category)
     {
+        if($category->posts->count() > 0){
+            session()->flash('error', 'Category cannot be deleted as it has some posts');
+            return redirect()->back();
+        }
         $category->delete();
 
         session()->flash('success', 'Category deleted successfully');
